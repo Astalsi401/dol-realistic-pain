@@ -1,0 +1,65 @@
+{
+  "name": "realistic-pain",
+  "version": "1.0.14",
+  "styleFileList": [],
+  "scriptFileList": [],
+  "tweeFileList": [],
+  "imgFileList": [],
+  "scriptFileList_inject_early": [
+    "realistic-pain.js"
+  ],
+  "addonPlugin": [
+    {
+      "modName": "ReplacePatcher",
+      "addonName": "ReplacePatcherAddon",
+      "modVersion": "1.0.0",
+      "params": {
+        "js": [
+          {
+            "from": "statChange.pain(minutes, -1);",
+            "to": "statChange.pain(minutes, painChangeByTime ? painChangeByTime(V.pain) : -1);",
+            "fileName": "time.js"
+          },
+          {
+            "from": "V.tiredness += Math.round(amount * Weather.BodyTemperature.fatigueModifier * (amount > 0 ? 15 : 20));",
+            "to": "V.tiredness += Math.round(amount * Weather.BodyTemperature.fatigueModifier * (amount > 0 ? 15 : 20) * (tirednessChangeByPain ? tirednessChangeByPain(V.pain) : 1));",
+            "fileName": "stat-changes.js"
+          },
+          {
+            "from": "options.isDebugging = !!V.debug;",
+            "to": "penetratedPain();\noptions.isDebugging = !!V.debug;",
+            "fileName": "21-player-options.js"
+          }
+        ]
+      }
+    },
+    {
+      "modName": "TweeReplacer",
+      "addonName": "TweeReplacerAddon",
+      "modVersion": "1.0.0",
+      "params": [
+        {
+          "passage": "Mines Guards Dig",
+          "findString": "<<set $mines_guards_dig += 1>>",
+          "replace": "<<set $mines_guards_dig += escapeAmount()>>"
+        },
+        {
+          "passage": "Livestock Field Dig",
+          "findString": "<<set $livestock_dig += 1>>",
+          "replace": "<<set $livestock_dig += escapeAmount()>>"
+        },
+        {
+          "passage": "Underground Cell Dig",
+          "findString": "<<set $undergroundbrothel.escape += 1>>",
+          "replace": "<<set $undergroundbrothel.escape += escapeAmount()>>"
+        }
+      ]
+    }
+  ],
+  "dependenceInfo": [
+    {
+      "modName": "ReplacePatcher",
+      "version": "^1.0.0"
+    }
+  ]
+}
