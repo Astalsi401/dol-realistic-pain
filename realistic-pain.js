@@ -34,6 +34,7 @@ const painChangeByTime = (currentPain) =>
   -Math.max(0.39 * Math.exp(-0.0195 * currentPain), 0.02);
 
 const tirednessChangeByPain = (currentPain) => {
+  // max tiredness increase need to < 4
   return Math.max(0.00181 * Math.pow(currentPain, 1.45), 1);
 };
 
