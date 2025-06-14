@@ -1,6 +1,6 @@
 {
   "name": "realistic-pain",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "scriptFileList_inject_early": ["realistic-pain.js"],
   "addonPlugin": [
     {
@@ -16,7 +16,7 @@
           },
           {
             "from": "V.tiredness += Math.round(amount * Weather.BodyTemperature.fatigueModifier * (amount > 0 ? 15 : 20));",
-            "to": "V.tiredness += Math.round(amount * Weather.BodyTemperature.fatigueModifier * (amount > 0 ? 15 : 20) * (tirednessChangeByPain ? tirednessChangeByPain(V.pain) : 1));",
+            "to": "V.tiredness += Math.round(amount * Weather.BodyTemperature.fatigueModifier * (amount > 0 ? 15 : 20) * (tirednessChangeByPain && amount > 0 ? tirednessChangeByPain(V.pain) : 1));",
             "fileName": "stat-changes.js"
           },
           {
