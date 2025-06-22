@@ -1,6 +1,6 @@
 {
   "name": "realistic-pain",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "scriptFileList_inject_early": ["realistic-pain.js"],
   "addonPlugin": [
     {
@@ -46,6 +46,11 @@
           "passage": "Underground Cell Dig",
           "findString": "<<set $undergroundbrothel.escape += 1>>",
           "replace": "<<set $undergroundbrothel.escape += escapeAmount()>>"
+        },
+        {
+          "passage": "Forest Wolf Cave",
+          "findString": "<<set $wolfcavedig += 1>>",
+          "replace": "<<set $wolfcavedig += escapeAmount()>>"
         }
       ]
     }
