@@ -10,12 +10,7 @@ const penetratedPain = () => {
     tentacle: 1.5,
     tentacledeep: 3,
   };
-  const bodySizeModifier = {
-    0: 1,
-    1: 0.5,
-    2: 0.1,
-    3: 0,
-  };
+  const bodySizeModifier = [2, 1, 0.5, 0];
   let pain = 0;
   [V.vaginastate, V.anusstate].forEach((state) => {
     if (Object.keys(painStates).includes(state)) pain += painStates[state];
@@ -23,18 +18,13 @@ const penetratedPain = () => {
   pain += Object.keys(painStates).includes(V.mouthstate)
     ? painStates[V.mouthstate] * 0.5
     : 0;
-  statChange.pain(
-    (pain / 2) * Object.keys(bodySizeModifier).includes(V.bodysize)
-      ? bodySizeModifier[V.bodysize]
-      : 0
-  );
+  statChange.pain(pain * bodySizeModifier[V.bodysize] || 0);
 };
 
 const painChangeByTime = (currentPain) =>
   -Math.max(0.39 * Math.exp(-0.0195 * currentPain), 0.02);
 
 const tirednessChangeByPain = (currentPain) => {
-  // max tiredness increase need to < 4
   return Math.max(0.00181 * Math.pow(currentPain, 1.45), 1);
 };
 
